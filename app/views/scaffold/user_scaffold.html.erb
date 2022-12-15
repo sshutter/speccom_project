@@ -1,0 +1,23 @@
+<h1>Create new user</h1><br>
+
+<%= form_with url: create_user_path, data: {turbo: false} do |f| %>
+    <div>   
+        <%= f.label :Email, class: "form-label" %>
+        <%= f.text_field :new_email, class: "form-control" %>
+    </div>
+    <br>
+    <div>
+        <%= f.label :Name, class: "form-label" %>
+        <%= f.text_field :new_name, class: "form-control" %>
+    </div><br>
+    <div>
+        <%= f.label :Password, class: "form-label" %>
+        <%= f.password_field :new_password, class: "form-control" %>
+    </div><br>
+    <div>
+        <%= f.label :new_user_type, "User Type", class: "form-label" %>
+        <%= f.select :new_user_type, options_for_select([["Admin", 0], ["Seller", 1], ["Buyer", 2]]), class: "dropdown-item" %>
+    </div><br>
+    <%= link_to "Back", main_path, class: "btn btn-dark" %>
+    <%= f.submit :create, class: 'btn btn-dark' %>
+<% end %>

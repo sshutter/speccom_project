@@ -1,0 +1,30 @@
+<h1>Purchase history</h1>
+
+<table class="table">
+    <thead class="thead-dark">        
+        <tr>
+            <th scope="col"> Item Name </th>
+            <th scope="col"> Seller Name </th>
+            <th scope="col"> Date & Time </th>
+            <th scope="col"> Price </th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <% @invents.each do |invent| %>
+            <% item2 = Item.where(id: invent.item_id).first %>
+            
+            <% if session[:user_id] == invent.user_id %>
+                <% seller = User.where(id: invent.user_id).first %>
+                    <tr>
+                        <td><%= item2.name %></td>
+                        <td><%= seller.name %></td>
+                        <td><%= invent.created_at %></td>
+                        <td><%= invent.price %></td>
+                    </tr>
+                <% end %>    
+        <% end %>
+    </tbody>
+</table>
+
+<%= link_to "Back", main_path, class: "btn btn-dark" %>

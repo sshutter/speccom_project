@@ -1,0 +1,24 @@
+<header>
+    <h1 class="title">My Page
+    
+        <%= link_to "#{session[:name]}", profile_path, class: "btn btn-dark btn-lg profile" %>
+
+    </h1>
+</header>
+
+<style>
+    .profile  {
+        position: absolute;
+        right: 5%;
+    }
+</style><br>
+
+<%= link_to "My market", my_market_path, class: 'btn btn-light' %><br><br>
+<%= link_to "Purchase history", purchase_his_path, class: 'btn btn-light' %><br><br>
+<%= link_to "Sale history", sale_history_path, class: 'btn btn-light' %><br><br>
+<%= link_to "My Inventory", my_inventory_path, class: 'btn btn-light' %><br><br>
+<%= link_to "Top seller", top_seller_path, class: 'btn btn-light'%><br><br>
+<%= link_to "User scaffold", user_scaffold_path, class: 'btn btn-light' %><br><br>
+<%= link_to "Item scaffold", item_scaffold_path, class: 'btn btn-light' %><br><br>
+
+<br><%= button_to "Log out", log_out_path, class: 'btn btn-dark' %><br><br>

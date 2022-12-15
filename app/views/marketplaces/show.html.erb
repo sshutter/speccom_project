@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @marketplace %>
+
+<div>
+  <%= link_to "Edit this marketplace", edit_marketplace_path(@marketplace) %> |
+  <%= link_to "Back to marketplaces", marketplaces_path %>
+
+  <%= button_to "Destroy this marketplace", @marketplace, method: :delete %>
+</div>

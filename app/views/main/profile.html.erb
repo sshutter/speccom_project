@@ -1,0 +1,8 @@
+<h1>Profile</h1><br>
+<h4><%= "User Type : #{@type}" %></h4><br>
+<h5><%= "Email : #{@email}" %></h5>
+<h5><%= "Name : #{@name}" %></h5>
+<%= link_to "Change Password", old_password_path, class: "btn btn-dark" %><br>
+<br>
+    <%= link_to "Back", main_path, class: "btn btn-dark" %>
+<br>

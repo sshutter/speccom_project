@@ -1,0 +1,62 @@
+<h1><%= "This is #{session[:name]}'s inventory"%></h1>
+
+
+<table class="table">
+    <thead class="thead-dark">        
+        <tr>
+            <th scope="col"> Name </th>
+            <th scope="col"> Category </th>
+            <th scope="col"> Enable </th>
+            <th scope="col"> Owner </th>
+            <th scope="col"> Quantity </th>
+            <th scope="col"> +1 </th>
+            <th scope="col"> Insert amount</th>
+            <th scope="col"> +1 </th>
+            <th scope="col"> Change enable </th>
+        </tr>
+    </thead>
+    <% @marketplaces = Marketplace.where(user_id: session[:user_id]).all %>
+    <% if @marketplaces.blank? == false %>
+        <% @marketplaces.each do |marketplace| %>
+            <% items = Item.where(id: marketplace.item_id).all %>
+            <% items.each do |item| %>
+                <tbody>
+                    <tr>
+                        
+                        <td><%= item.name %></td>
+                        <td><%= item.category %></td>
+                        <td><%= item.enable %></td>
+                        <td><%= item.user_id %></td>
+                        <td><%= marketplace.stock %></td>
+                        <td><%= button_to "-1", my_inventory_path, params:{change: "-1", item_id2: item.id, user_id2: item.user_id}, method: :get, class:"btn btn-dark mb-1" %></td>
+                        <td>
+                            <%= form_with url: my_inventory2_path, data: {turbo: false} do |f| %>
+                                <%= f.text_field :edit_item %>
+                                <%= hidden_field_tag :item_id2, item.id %>
+                                <%= hidden_field_tag :user_id2, item.user_id %>
+                                <%# <%= render html: item_id2 %>
+                                
+                                <%= f.submit :Submit, class: "btn btn-dark" %>
+
+                            <% end %>
+                        </td>
+                        <td><%= button_to "+1", my_inventory_path, params:{change: "+1", item_id2: item.id, user_id2: item.user_id}, method: :get, class:"btn btn-dark mb-1" %></td>
+                        <td>
+                            <%= form_with url: my_inventory2_path, data: {turbo: false} do |f| %>
+                                <%= hidden_field_tag :item_id2, item.id %>
+                                <%= hidden_field_tag :user_id2, item.user_id %>
+                                <%= f.select :change_enable, options_for_select([["True", true], ["False", false]]), class: "dropdown-item" %>
+                                
+                                <%= f.submit :Save, class: "btn btn-dark" %>
+
+                            <% end %>
+                        </td>
+                        <td><%= button_to "Delete", my_inventory_path, params:{is_delete: true, item_id2: item.id, user_id2: item.user_id}, method: :get, class:"btn btn-dark mb-1" %></td>
+                    </tr>
+                </tbody>
+            <% end %>
+        <% end %>
+    <% end %>
+</table>
+
+<%= link_to "Back", main_path, class: "btn btn-dark" %>

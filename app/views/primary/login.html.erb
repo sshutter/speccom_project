@@ -1,0 +1,16 @@
+<h1>Login</h1>
+
+<%= form_with url: login_create_path, data: {turbo: false} do |f| %>
+    <div>   
+        <%= f.label :email, class: "form-label" %>
+        <%= f.text_field :email, class: "form-control" %>
+    </div>
+    <br>
+    <div>
+        <%= f.label :password, class: "form-label" %>
+        <%= f.password_field :password, class: "form-control" %>
+    </div>
+    <br>
+    <%= f.submit :Login, class: 'btn btn-dark' %>
+<% end %>
+

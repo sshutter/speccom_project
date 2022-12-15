@@ -1,0 +1,75 @@
+<h1>My market</h1>
+
+<%= form_tag(my_market_path, method: :get) do %>
+    <%= text_field_tag(:search, params[:search_category]) %>
+    <%= submit_tag(:search, class: "btn btn-dark") %>
+<% end %><br>
+
+<table class="table">
+    <thead class="thead-dark">        
+        <tr>
+            <th scope="col"> Name </th>
+            <th scope="col"> Category </th>
+            <th scope="col"> Enable </th>
+            <th scope="col"> Owner </th>
+            <th scope="col"> Stock </th>
+        </tr>
+    </thead>
+    
+    <% if @marketplaces.blank? == false %>
+        <% @marketplaces.each do |m| %>
+            <% if m.is_a? Item %>
+                <% item = Item.where(id: m.id, user_id: m.user_id).first %>
+                <% if m.enable %>
+                    <tbody>
+                        <tr>
+                            <td><%= item.name %></td>
+                            <td><%= item.category %></td>
+                            <td><%= item.enable %></td>
+                            <td><%= item.user_id %></td>
+                            <td><%= Marketplace.where(item_id: item.id).first.stock %></td>
+                            <td>
+                                <% item_id2 = item.id.to_i %>
+                                <% user_id2 = item.user_id.to_i %>
+                                <%= form_with url: my_market2_path, data: {turbo: false} do |f| %>
+                                    <%= f.text_field :buy_qty %>
+                                    <%= hidden_field_tag :item_id2, item_id2 %>
+                                    <%= hidden_field_tag :user_id2, user_id2 %>
+                                    <%# <%= render html: item_id2 %>
+                                    <%= f.submit :Buy, class: "btn btn-dark" %>
+                                <% end %>
+                            </td>
+                        </tr>
+                    </tbody>
+                <% end %>
+            <% else %>
+                <% item = Item.where(id: m.item_id, user_id: m.user_id).first %>
+                <% if item.enable %>
+                    <tbody>
+                        <tr>
+                            <td><%= item.name %></td>
+                            <td><%= item.category %></td>
+                            <td><%= item.enable %></td>
+                            <td><%= item.user_id %></td>
+                            <td><%= Marketplace.where(item_id: item.id).first.stock %></td>
+                            <td>
+                                <% item_id2 = item.id.to_i %>
+                                <% user_id2 = item.user_id.to_i %>
+                                <%= form_with url: my_market2_path, data: {turbo: false} do |f| %>
+                                    <%= f.text_field :buy_qty %>
+                                    <%= hidden_field_tag :item_id2, item_id2 %>
+                                    <%= hidden_field_tag :user_id2, user_id2 %>
+                                    <%# <%= render html: item_id2 %>
+                                    
+                                    <%= f.submit :Buy, class: "btn btn-dark" %>
+                                <% end %>
+                            </td>
+                        </tr>
+                    </tbody>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+</table>
+
+<%= link_to "Back", main_path, class: "btn btn-dark" %>
