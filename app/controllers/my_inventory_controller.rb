@@ -1,4 +1,4 @@
-class MyInventController < ApplicationController
+class MyInventoryController < ApplicationController
     before_action :must_seller_admin, only: %i[ my_inventory ]
 
     def my_inventory
@@ -64,6 +64,24 @@ class MyInventController < ApplicationController
 
     end 
 
+    def add_inventory
+        
+
+    end
+
+    def add_inventory2
+        a = Item.new(name: params[:new_item_name], category: params[:new_item_category], enable: params[:new_item_enable], user_id: params[:new_owner_user_id], lock_version: params[:lock_version])
+        a.save
+
+        b = Marketplace.new(user_id: params[:new_owner_user_id], item_id: a.id, price: params[:new_mar_price], stock: params[:new_mar_stock], lock_version: params[:lock_version])
+        b.save
+
+        if a and b
+            redirect_to my_inventory_path, notice: "You creation is successful."
+        else
+            redirect_to add_invent_path, alert: "Your creation is failed."
+        end
+    end
    
     private
         def is_seller_admin

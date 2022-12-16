@@ -10,11 +10,13 @@ class ScaffoldController < ApplicationController
         new_name = params[:new_name]
         new_password = params[:new_password]
         new_user_type = params[:new_user_type].to_i
+        lock_version = params[:lock_version].to_i
         a = User.new
         a.email = new_email
         a.name = new_name
         a.password = new_password
-        a.user_type = new_user_type
+        a.user_type = new_user_type 
+        a.lock_version = lock_version
         a.save
         redirect_to main_path, notice: "You have created user!"
     end
@@ -28,11 +30,7 @@ class ScaffoldController < ApplicationController
         # new_item_category = params[:new_item_category]
         # new_item_enable = params[:new_item_enable]
         # new_user_id = params[:new_user_id]
-        b = Item.new
-        b.name = params[:new_item_name]
-        b.category = params[:new_item_category]
-        b.enable = params[:new_item_enable]
-        b.user_id = params[:new_user_id]
+        b = Item.new(name: params[:new_item_name], category: params[:new_item_category], enable: params[:new_item_enable], user_id: params[:new_user_id], lock_version: params[:lock_version])
 
         if b.save
             redirect_to main_path, notice: "You have created item."

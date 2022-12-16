@@ -65,6 +65,6 @@ class MarketplacesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def marketplace_params
-      params.require(:marketplace).permit(:user_id, :item_id, :price, :stock)
+      params.require(:marketplace).permit(:user_id, :item_id, :price, :stock, :lock_version)
     end
 end

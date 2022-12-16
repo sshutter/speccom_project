@@ -20,7 +20,7 @@
         <% @marketplaces.each do |m| %>
             <% if m.is_a? Item %>
                 <% item = Item.where(id: m.id, user_id: m.user_id).first %>
-                <% if m.enable %>
+                <% if m.enable and Marketplace.where(item_id: item.id).first != nil %>
                     <tbody>
                         <tr>
                             <td><%= item.name %></td>
@@ -36,31 +36,6 @@
                                     <%= hidden_field_tag :item_id2, item_id2 %>
                                     <%= hidden_field_tag :user_id2, user_id2 %>
                                     <%# <%= render html: item_id2 %>
-                                    <%= f.submit :Buy, class: "btn btn-dark" %>
-                                <% end %>
-                            </td>
-                        </tr>
-                    </tbody>
-                <% end %>
-            <% else %>
-                <% item = Item.where(id: m.item_id, user_id: m.user_id).first %>
-                <% if item.enable %>
-                    <tbody>
-                        <tr>
-                            <td><%= item.name %></td>
-                            <td><%= item.category %></td>
-                            <td><%= item.enable %></td>
-                            <td><%= item.user_id %></td>
-                            <td><%= Marketplace.where(item_id: item.id).first.stock %></td>
-                            <td>
-                                <% item_id2 = item.id.to_i %>
-                                <% user_id2 = item.user_id.to_i %>
-                                <%= form_with url: my_market2_path, data: {turbo: false} do |f| %>
-                                    <%= f.text_field :buy_qty %>
-                                    <%= hidden_field_tag :item_id2, item_id2 %>
-                                    <%= hidden_field_tag :user_id2, user_id2 %>
-                                    <%# <%= render html: item_id2 %>
-                                    
                                     <%= f.submit :Buy, class: "btn btn-dark" %>
                                 <% end %>
                             </td>

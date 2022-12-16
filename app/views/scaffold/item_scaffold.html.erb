@@ -2,6 +2,7 @@
 
 
 <%= form_with url: create_item_path, data: {turbo: false} do |f| %>
+    <div><%= f.hidden_field :lock_version %></div>
     <div>   
         <%= f.label :Name, class: "form-label" %>
         <%= f.text_field :new_item_name, class: "form-control" %>

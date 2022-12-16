@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_12_183227) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_15_192213) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,6 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_183227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "item_id", null: false
+    t.integer "lock_version"
     t.index ["item_id"], name: "index_inventories_on_item_id"
     t.index ["user_id"], name: "index_inventories_on_user_id"
   end
@@ -57,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_183227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.integer "lock_version"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -67,6 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_183227) do
     t.integer "stock"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version"
     t.index ["item_id"], name: "index_marketplaces_on_item_id"
     t.index ["user_id"], name: "index_marketplaces_on_user_id"
   end
@@ -78,6 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_183227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_type"
+    t.integer "lock_version"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
