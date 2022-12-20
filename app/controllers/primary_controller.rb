@@ -6,12 +6,12 @@ class PrimaryController < ApplicationController
     def create
       u = User.where(email: params[:email]).first
       if u && u.authenticate(params[:password])
-        redirect_to main_path
         session[:logged_in] = true
         session[:user_id] = u.id
         session[:email] = u.email
         session[:name] = u.name
         session[:user_type] = u.user_type
+        redirect_to main_path
       else
         redirect_to login_path, alert: 'Wrong Email or Password'
       end

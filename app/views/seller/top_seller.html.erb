@@ -1,0 +1,25 @@
+<h1>Top seller</h1><br>
+
+<%= form_with url: gen_top_path, data:{turbo: false} do |f| %>
+    <div>
+        <%= f.label :start_date, class: "form-label" %>
+        <%= f.date_field :start_date, class: "form-control" %>
+    </div><br>
+
+    <div>
+        <%= f.label :stop_date, class: "form-label" %>
+        <%= f.date_field :stop_date, class: "form-control" %>
+    </div><br>
+
+    <div>
+        <%= f.label :sort_by, "Sort by" %>
+        <%= f.select :sort_by, options_for_select([["Quantity", "quantity"], ["Total price", "total_price"]]), class: "dropdown-item" %>
+    </div><br>
+    
+    <div>
+        <%= f.submit :submit, class: "btn btn-dark" %>
+    </div><br>
+<% end %>
+
+<h3><%= "Your top seller is #{session[:user_top_name]}" %></h3><br><br>
+<%= link_to "Back", main_path, class: "btn btn-dark" %>

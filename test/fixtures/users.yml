@@ -9,3 +9,9 @@ two:
   email: MyString
   name: MyString
   password_digest: MyString
+
+three:
+  email: shutterkus@gmail.com
+  name: shutter
+  password_digest: "1234"
+  user_type: 0

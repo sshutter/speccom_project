@@ -20,9 +20,9 @@
         <%= f.label :new_user_id,"Owner" , class: "form-label" %>
         <%= f.select :new_user_id, User.where(user_type: 1).all.collect { |u| [u.id, u.id] }, class: "form-control" %>
     </div><br>
-    <%# <div>    %>
-        <%# <%= f.file_field :image, class: "form-control" %> 
-    <%# </div><br> %>
+    
+
+
     <%= link_to "Back", main_path, class: "btn btn-dark" %>
     <%= f.submit :create, class: 'btn btn-dark' %>
 <% end %>

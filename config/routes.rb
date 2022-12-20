@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get "/my_inventory/add_inventory", to: "my_inventory#add_inventory", as: "add_invent"
   post "/my_inventory/add_inventory", to: "my_inventory#add_inventory2", as: "add_invent2"
   get "/top_seller", to: "seller#top_seller", as: "top_seller"
+  post "/top_seller", to: "seller#gen_top_seller", as: "gen_top"
   get "/user_scaffold", to: "scaffold#user_scaffold", as: "user_scaffold"
   post "/user_scaffold", to: "scaffold#create_user", as: "create_user"
   get "/item_scaffold", to: "scaffold#item_scaffold", as: "item_scaffold"
