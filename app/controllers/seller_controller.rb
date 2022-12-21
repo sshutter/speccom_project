@@ -27,17 +27,17 @@ class SellerController < ApplicationController
             # top_item = Item.where(id: user_top_id).first.user_id
             session[:user_top_name] = User.where(id: user_top_id).first.name
             
-        elsif params[:sort_by] == "toral_price"
+        elsif params[:sort_by] == "total_price"
             this_price = 0
             max_price = 0
             max_price_id = 0
             dic = {}
-            inventory_all = Inventory.all.collect{ |u| [u.id, u.qty]
+            inventory_all = Inventory.all.collect{ |u| [u.item_id, u.qty]
                 this_price = u.qty.to_i * u.price.to_i
-                if dic.has_key?(u.id)
-                    dic[u.id] += this_price
+                if dic.has_key?(u.item_id)
+                    dic[u.item_id] += this_price
                 else 
-                    dic = dic.merge({u.id=>this_price})
+                    dic = dic.merge({u.item_id=>this_price})
                 end
 
                 # if max_price < this_price
@@ -47,8 +47,8 @@ class SellerController < ApplicationController
             }
 
             dic = dic.sort_by{ |k,v| v }
-            maxprice = dic.values.last
-            max_price_id = dic.keys.last 
+            maxprice = dic.last.last
+            max_price_id = dic.last.first
 
             user_top_id = Marketplace.where(item_id: max_price_id).first.user_id
             # top_item = Item.where(id: user_top_id).first.user_id
