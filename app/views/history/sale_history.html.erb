@@ -6,7 +6,7 @@
             <th scope="col"> Item Name </th>
             <th scope="col"> Buyer Name </th>
             <th scope="col"> Date & Time </th>
-            <th scope="col"> Price </th>
+            <th scope="col"> Total price </th>
         </tr>
     </thead>
     
@@ -19,7 +19,7 @@
                         <td><%= item2.name %></td>
                         <td><%= buyer.name %></td>
                         <td><%= invent.created_at %></td>
-                        <td><%= invent.price %></td>
+                        <td><%= invent.price * invent.qty %></td>
                     </tr>
                 <% end %>    
         <% end %>

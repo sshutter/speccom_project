@@ -16,10 +16,12 @@ class SellerController < ApplicationController
             count_item = 0
             max_id = 0
             inventory_all = Inventory.all.collect{ |u| [u.id, u.item_id] 
-                count_item = Inventory.where(item_id: u.item_id).count
-                if max_c < count_item
-                    max_c = count_item
-                    max_id = u.item_id
+                if params[:start_date] <= u.created_at and u.created_at < params[:stop_date]
+                    count_item = Inventory.where(item_id: u.item_id).count
+                    if max_c < count_item
+                        max_c = count_item
+                        max_id = u.item_id
+                    end
                 end
             }
 
@@ -33,13 +35,14 @@ class SellerController < ApplicationController
             max_price_id = 0
             dic = {}
             inventory_all = Inventory.all.collect{ |u| [u.item_id, u.qty]
-                this_price = u.qty.to_i * u.price.to_i
-                if dic.has_key?(u.item_id)
-                    dic[u.item_id] += this_price
-                else 
-                    dic = dic.merge({u.item_id=>this_price})
+                if params[:start_date] <= u.created_at and u.created_at < params[:stop_date]
+                    this_price = u.qty.to_i * u.price.to_i
+                    if dic.has_key?(u.item_id)
+                        dic[u.item_id] += this_price
+                    else 
+                        dic = dic.merge({u.item_id=>this_price})
+                    end
                 end
-
                 # if max_price < this_price
                 #     max_price = this_price
                 #     max_price_id = u.item_id
